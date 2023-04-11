@@ -1,0 +1,60 @@
+@import '../../styles/_variables.scss';
+
+.creationGoal {
+    display: grid;
+    place-content: center;
+    font-size: 1.8rem;
+    background-color: $bg-color;
+
+}
+.creationGoal__title {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.creationGoal__form {
+    display: grid;
+
+    .creationGoal__form__warning {
+        font-size: 1.4rem;
+        font-style: italic;
+        color: gray;
+    }
+}
+
+.creationTask__form__labelsContainer {
+    display: flex;
+    gap: 6px;
+}
+
+.creationTask__form__labelsContainer__radioLabels {
+    position: relative;
+
+    .creationTask__form__labelsContainer__radioLabels__radioColor {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        padding: 4px;
+        cursor: pointer;
+        border-radius: 9999px;
+        border: 2px solid transparent;
+        background-color: lightgray;
+
+        span {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            border-radius: 9999px;
+        }
+    }
+    .creationTask__form__labelsContainer__radioLabels__radioInput {
+        visibility: hidden;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+}
+
+.radioSelected {
+    border: 2px solid dodgerblue !important;
+}
