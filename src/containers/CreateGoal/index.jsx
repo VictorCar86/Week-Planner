@@ -1,8 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import './index.scss';
+import FormError from '../../components/FormError';
 
 const CreateGoal = () => {
     const currentDate = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
+
+    const [formMistakes, setFormMistakes] = useState({ name: false, description: false });
 
     const formRef = useRef(null);
 
@@ -16,11 +19,19 @@ const CreateGoal = () => {
         };
 
         if (goalPayload.name === '') {
-            console.error('NAME')
+            setFormMistakes(prev => ({ ...prev, name: true }));
         }
+        else {
+            setFormMistakes(prev => ({ ...prev, name: false }));
+        }
+
         if (goalPayload.description.length >= 1 && goalPayload.description.length < 20) {
-            console.error('DESC')
+            setFormMistakes(prev => ({ ...prev, description: true }));
         }
+        else {
+            setFormMistakes(prev => ({ ...prev, description: false }));
+        }
+
 
         return;
 
@@ -41,36 +52,42 @@ const CreateGoal = () => {
     }
 
     return (
-        <section className='creationGoal'>
-        <p className='creationGoal__title'>Create your goal</p>
+        <section className='create-goal-container'>
+        <p className='create-goal-container__title'>Create your goal</p>
 
-        <form className='creationGoal__form' action='POST' ref={formRef}>
+        <form className='create-goal-container__form' action='POST' ref={formRef}>
             <label htmlFor='goal_name'>
                 <p>Goal name</p>
-                <input type='text' placeholder='Goal name' name='goal_name'/>
-                <p className='creationGoal__form__warning'>Required</p>
+                <input className={`create-goal-container__form__input ${formMistakes.name && 'create-goal-container__form__input--error'}`} type='text' placeholder='Goal name' name='goal_name'/>
+                <p className='create-goal-container__form__tips'>Required</p>
             </label>
 
             <br />
 
             <label htmlFor='goal_description'>
                 <p>Description</p>
-                <textarea placeholder='Description' name='goal_description'/>
-                <p className='creationGoal__form__warning'>Optional</p>
+                <textarea className={`create-goal-container__form__input ${formMistakes.description && 'create-goal-container__form__input--error'}`} placeholder='Description' name='goal_description'/>
+                <p className='create-goal-container__form__tips'>Optional</p>
             </label>
 
             <br />
 
             <label htmlFor='goal_limit_date'>
                 <p>Limit date</p>
-                <input type='datetime-local' name='goal_limit_date' min={currentDate}/>
-                <p className='creationGoal__form__warning'>Optional but recommended</p>
+                <input className='create-goal-container__form__input' type='datetime-local' name='goal_limit_date' min={currentDate}/>
+                <p className='create-goal-container__form__tips'>Optional but recommended</p>
             </label>
         </form>
 
-        <br />
+        {formMistakes.name && (
+            <FormError text='Please introduce a name for your goal' />
+        )}
 
-        <button onClick={postGoal}>CLICK</button>
+        {formMistakes.description && (
+            <FormError text='Descriptions can only be minimum 20 characters' />
+        )}
+
+        <button type='submit' onClick={postGoal}>CLICK</button>
         </section>
     )
 }

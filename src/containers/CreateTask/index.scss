@@ -1,0 +1,52 @@
+@import '../../styles/_variables.scss';
+
+.create-task-container {
+    display: grid;
+    place-content: center;
+    font-size: 1.8rem;
+    background-color: $bg-color;
+}
+
+.create-task-cocntainer__title {
+    margin: 20px 0px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.create-task-container__form__labels-container {
+    display: flex;
+    gap: 6px;
+}
+
+.labels-container__radio-labels {
+    position: relative;
+
+    .labels-container__radio-labels__radio-color {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        padding: 4px;
+        cursor: pointer;
+        border-radius: 9999px;
+        border: 2px solid transparent;
+        background-color: lightgray;
+
+        span {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            border-radius: 9999px;
+        }
+    }
+    .labels-container__radio-labels__radio-input {
+        visibility: hidden;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+}
+
+.radio-selected {
+    border: 2px solid dodgerblue !important;
+}

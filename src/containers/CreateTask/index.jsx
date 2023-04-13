@@ -9,11 +9,53 @@ const CreateTask = () => {
 
     const formRef = useRef(null);
 
-    return (
-        <section className='creationTask creationGoal'>
-            <p className='creationGoal__title'>Create your task</p>
+    function postTask() {
+        const formData = new FormData(formRef.current);
 
-            <form className='creationTask__form' action='POST' ref={formRef}>
+        const taskPayload = {
+            name: formData.get('task_name'),
+            maxDate: formData.get('maximum_date'),
+            color: currentColor,
+        };
+
+        console.log(taskPayload)
+
+        // if (taskPayload.name === '') {
+        //     setFormMistakes(prev => ({ ...prev, name: true }));
+        // }
+        // else {
+        //     setFormMistakes(prev => ({ ...prev, name: false }));
+        // }
+
+        // if (taskPayload.description.length >= 1 && taskPayload.description.length < 20) {
+        //     setFormMistakes(prev => ({ ...prev, description: true }));
+        // }
+        // else {
+        //     setFormMistakes(prev => ({ ...prev, description: false }));
+        // }
+
+
+        return;
+
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(taskPayload),
+        };
+
+        fetch('http://localhost:8787/api/v1/tasks', fetchOptions)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
+    }
+
+    return (
+        <section className='create-task-container'>
+            <p className='create-task-cocntainer__title'>Create your task</p>
+
+            <form className='create-task-container__form' action='POST' ref={formRef}>
                 <label htmlFor='goal_name'>
                     <p>Task name</p>
                     <input type='text' placeholder='Task name' name='task_name'/>
@@ -21,23 +63,23 @@ const CreateTask = () => {
 
                 <p>Task color</p>
 
-                <div className='creationTask__form__labelsContainer'>
+                <div className='create-task-container__form__labels-container'>
                     {radioColors.map((color, index) => (
                         <label
-                            className='creationTask__form__labelsContainer__radioLabels'
+                            className='labels-container__radio-labels'
                             htmlFor={`task_color_${color}`}
                             key={index}
                         >
-                            <span className={`creationTask__form__labelsContainer__radioLabels__radioColor ${currentColor === color && 'radioSelected'}`}>
-                            <span style={{backgroundColor: color}}>{/*Inside color*/}</span>
+                            <span className={`labels-container__radio-labels__radio-color ${currentColor === color && 'radio-selected'}`}>
+                                <span style={{backgroundColor: color}}>{/*Inside color*/}</span>
                             </span>
                             <input
-                                className='creationTask__form__labelsContainer__radioLabels__radioInput'
+                                className='labels-container__radio-labels__radio-input'
                                 onClick={(radio) => setCurrentColor(radio.target.value)}
                                 id={`task_color_${color}`}
-                                type='radio'
-                                value={color}
                                 name='task_color'
+                                value={color}
+                                type='radio'
                             />
                         </label>
                     ))}
@@ -53,7 +95,7 @@ const CreateTask = () => {
                 </label>
             </form>
 
-            <button onClick={() => console.log(new FormData(formRef.current).get('task_color'))}>CLICK</button>
+            <button type='submit' onClick={postTask}>CLICK</button>
         </section>
     )
 }

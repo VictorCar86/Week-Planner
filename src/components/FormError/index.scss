@@ -1,0 +1,38 @@
+.form-error-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    margin-bottom: 8px;
+    color: #ff3434;
+    font-weight: 700;
+    font-size: 1.4rem;
+    border-radius: 6px;
+    border: 1px solid #fac6c6;
+    background-color: #f3d8d1;
+
+    animation: form_error_popup 0.2s ease-out forwards;
+
+    @keyframes form_error_popup {
+        0% {
+            transform: scale(0);
+        }
+        80% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .form-error-container__svg {
+        height: min-content;
+        width: 24px;
+        fill: #ff0000;
+    }
+
+    .form-error-container__text {
+        max-width: 260px;
+    }
+}
