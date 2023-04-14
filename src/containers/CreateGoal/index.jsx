@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
-import './index.scss';
 import FormError from '../../components/FormError';
+import './index.scss';
 
 const CreateGoal = () => {
     const currentDate = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
@@ -58,24 +58,41 @@ const CreateGoal = () => {
         <form className='create-goal-container__form' action='POST' ref={formRef}>
             <label htmlFor='goal_name'>
                 <p>Goal name</p>
-                <input className={`create-goal-container__form__input ${formMistakes.name && 'create-goal-container__form__input--error'}`} type='text' placeholder='Goal name' name='goal_name'/>
-                <p className='create-goal-container__form__tips'>Required</p>
+                <input
+                    className={`create-goal-container__form__input ${formMistakes.name && 'input-error'}`}
+                    placeholder='Goal name'
+                    type='text'
+                    name='goal_name'
+                    id='goal_name'
+                />
+                <p className='input-tip'>Required</p>
             </label>
 
             <br />
 
             <label htmlFor='goal_description'>
                 <p>Description</p>
-                <textarea className={`create-goal-container__form__input ${formMistakes.description && 'create-goal-container__form__input--error'}`} placeholder='Description' name='goal_description'/>
-                <p className='create-goal-container__form__tips'>Optional</p>
+                <textarea
+                    className={`create-goal-container__form__input ${formMistakes.description && 'input-error'}`}
+                    placeholder='Description'
+                    name='goal_description'
+                    id='goal_description'
+                />
+                <p className='input-tip'>Optional</p>
             </label>
 
             <br />
 
             <label htmlFor='goal_limit_date'>
                 <p>Limit date</p>
-                <input className='create-goal-container__form__input' type='datetime-local' name='goal_limit_date' min={currentDate}/>
-                <p className='create-goal-container__form__tips'>Optional but recommended</p>
+                <input
+                    className='create-goal-container__form__input'
+                    type='datetime-local'
+                    id='goal_limit_date'
+                    name='goal_limit_date'
+                    min={currentDate}
+                />
+                <p className='input-tip'>Optional but recommended</p>
             </label>
         </form>
 

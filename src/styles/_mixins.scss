@@ -1,0 +1,17 @@
+@mixin generic-input($pad, $margin){
+    padding: $pad;
+    margin: $margin;
+    border: 2px solid gray;
+    border-radius: 16px;
+    resize: none;
+}
+
+.input-error {
+    border: 2px solid #f01a1a !important;
+}
+
+.input-tip {
+    font-size: 1.4rem;
+    font-style: italic;
+    color: gray;
+}

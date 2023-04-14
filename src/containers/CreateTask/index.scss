@@ -1,4 +1,5 @@
 @import '../../styles/_variables.scss';
+@import '../../styles/_mixins.scss';
 
 .create-task-container {
     display: grid;
@@ -7,20 +8,35 @@
     background-color: $bg-color;
 }
 
-.create-task-cocntainer__title {
+.create-task-container__title {
     margin: 20px 0px;
     text-align: center;
     font-size: 2rem;
     font-weight: 700;
 }
 
-.create-task-container__form__labels-container {
-    display: flex;
-    gap: 6px;
+.create-task-container__form {
+    display: grid;
+    justify-content: center;
+
+    .labels-container {
+        display: flex;
+        gap: 6px;
+        height: min-content;
+        width: min-content;
+        padding-bottom: 4px;
+        margin: 12px 0px;
+        list-style: none;
+    }
+}
+
+.create-task-container__form__generic-input {
+    @include generic-input(6px, 12px 0px);
 }
 
 .labels-container__radio-labels {
     position: relative;
+
 
     .labels-container__radio-labels__radio-color {
         display: grid;
@@ -49,4 +65,8 @@
 
 .radio-selected {
     border: 2px solid dodgerblue !important;
+}
+
+.radio-error {
+    box-shadow: 0px 4px 2px -2px red;
 }
