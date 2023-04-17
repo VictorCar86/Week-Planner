@@ -1,29 +1,82 @@
-.noGoalsSection {
+@mixin generic-button(){
+    height: 44px;
+    width: max-content;
+    transition: all 0.25s;
+    &:hover { filter: drop-shadow(0px 0px 6px #9c9c9c) }
+    &:active { filter: invert(1) }
+}
+
+.goals-section {
     display: table-cell;
     width: 100vw;
     height: 100%;
     background-color: #f5f5dc;
+}
+
+.goals-section__header {
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    margin: 30px 0px;
 
     h1 {
-        margin: 20px 0px;
         font-size: 2.4rem;
         text-align: center;
     }
 
-    .noGoalsSection__notFoundContainer {
-        display: grid;
-        place-items: center;
+    p {
+        margin-top: 8px;
+        color: #43314c;
+        font-weight: 700;
         font-size: 1.8rem;
+        text-transform: capitalize;
+    }
 
-        img {
-            height: min-content;
-            width: 30%;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px #808080;
+    span:last-child {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        button:first-child {
+            color: #ffffff;
+            background-color: #43314c;
+            @include generic-button();
         }
 
-        p {
-            margin: 20px 0px;
+        button:last-child {
+            display: grid;
+            place-content: center;
+            color: #000000;
+            background-color: #d4d4d4;
+            @include generic-button();
+
+            svg {
+                width: 20px;
+                height: max-content;
+            }
         }
     }
+
+    .goals-section__header__button {
+        height: 100%;
+        padding: 0px 12px;
+        border-radius: 6px;
+        border: 1px solid gray;
+        cursor: pointer;
+    }
+}
+
+.goals-section__not-found-container {
+    display: grid;
+    place-items: center;
+    font-size: 1.8rem;
+
+    img {
+        height: min-content;
+        width: 30%;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px #808080;
+    }
+
+    p { margin: 20px 0px }
 }
