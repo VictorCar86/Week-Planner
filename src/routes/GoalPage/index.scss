@@ -1,0 +1,52 @@
+.goal-page-header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px 0px;
+
+    &__name {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    &__tasks-info-container {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+
+        &__progress-container {
+            display: inline-block;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #808080;
+
+            div:first-child {
+                position: relative;
+                width: 80%;
+                height: 18px;
+                margin-bottom: 8px;
+                border-radius: 9999px;
+                background-color: #d3d3d3;
+
+                &::after {
+                    position: absolute;
+                    content: "";
+                    width: 60%;
+                    height: 100%;
+                    border-radius: 9999px;
+                    background-color: #702a70;
+                }
+            }
+        }
+    }
+}
+
+.goal-page-tasks-section {
+    width: 80%;
+    margin: 0px auto;
+
+    &__title {
+        font-weight: 700;
+        font-size: 1.8rem;
+    }
+}

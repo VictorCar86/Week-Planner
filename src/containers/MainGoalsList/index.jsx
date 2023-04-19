@@ -31,7 +31,7 @@ const MainGoalsList = () => {
                         </button>
                     </header>
 
-                    <p className='item__description'>{ goal.description }</p>
+                    <p className='main-goals-list-container__item__description'>{ goal.description }</p>
 
                     <p>{ goal.limitDate }</p>
 

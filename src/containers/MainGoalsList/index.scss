@@ -1,15 +1,15 @@
 .main-goals-list-container {
     display: grid;
+    grid-template-columns: repeat(auto-fit, 250px);
     grid-auto-flow: column;
     align-items: center;
     gap: 20px;
-    width: 80vw;
+    width: 100%;
     height: 300px;
-    margin: 0px auto;
     list-style: none;
     overflow-x: scroll;
 
-    .main-goals-list-container__item {
+    &__item {
         display: grid;
         gap: 4%;
         width: 250px;
@@ -56,7 +56,7 @@
             }
         }
 
-        .item__description {
+        &__description {
             display: -webkit-box;
             -webkit-line-clamp: 4;
             -webkit-box-orient: vertical;

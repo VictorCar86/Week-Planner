@@ -18,24 +18,15 @@ const CreateGoal = () => {
             limitDate: formData.get('goal_limit_date'),
         };
 
-        if (goalPayload.name === '') {
-            setFormMistakes(prev => ({ ...prev, name: true }));
-        }
-        else {
-            setFormMistakes(prev => ({ ...prev, name: false }));
-        }
+        const nameExist = goalPayload.name === '';
+        const descBiggerThan1 = goalPayload.description.length >= 1;
+        const descLessThan20 = goalPayload.description.length < 20;
 
-        if (goalPayload.description.length >= 1 && goalPayload.description.length < 20) {
-            setFormMistakes(prev => ({ ...prev, description: true }));
+        setFormMistakes({ name: nameExist, description: (descBiggerThan1 && descLessThan20) });
+
+        if (nameExist || (descBiggerThan1 && descLessThan20)){
+            return;
         }
-        else {
-            setFormMistakes(prev => ({ ...prev, description: false }));
-        }
-
-
-        return;
-
-        console.log("🚀 ~ file: index.jsx:16 ~ postGoal ~ goalPayload:", goalPayload);
 
         const fetchOptions = {
             method: 'POST',
@@ -53,58 +44,58 @@ const CreateGoal = () => {
 
     return (
         <section className='create-goal-container'>
-        <p className='create-goal-container__title'>Create your goal</p>
+            <p className='create-goal-container__title'>Create your goal</p>
 
-        <form className='create-goal-container__form' action='POST' ref={formRef}>
-            <label htmlFor='goal_name'>
-                <p>Goal name</p>
-                <input
-                    className={`create-goal-container__form__input ${formMistakes.name && 'input-error'}`}
-                    placeholder='Goal name'
-                    type='text'
-                    name='goal_name'
-                    id='goal_name'
-                />
-                <p className='input-tip'>Required</p>
-            </label>
+            <form className='create-goal-container__form' action='POST' ref={formRef}>
+                <label htmlFor='goal_name'>
+                    <p>Goal name</p>
+                    <input
+                        className={`create-goal-container__form__input ${formMistakes.name && 'input-error'}`}
+                        placeholder='Goal name'
+                        type='text'
+                        name='goal_name'
+                        id='goal_name'
+                    />
+                    <p className='input-tip'>Required</p>
+                </label>
 
-            <br />
+                <br />
 
-            <label htmlFor='goal_description'>
-                <p>Description</p>
-                <textarea
-                    className={`create-goal-container__form__input ${formMistakes.description && 'input-error'}`}
-                    placeholder='Description'
-                    name='goal_description'
-                    id='goal_description'
-                />
-                <p className='input-tip'>Optional</p>
-            </label>
+                <label htmlFor='goal_description'>
+                    <p>Description</p>
+                    <textarea
+                        className={`create-goal-container__form__input ${formMistakes.description && 'input-error'}`}
+                        placeholder='Description'
+                        name='goal_description'
+                        id='goal_description'
+                    />
+                    <p className='input-tip'>Optional</p>
+                </label>
 
-            <br />
+                <br />
 
-            <label htmlFor='goal_limit_date'>
-                <p>Limit date</p>
-                <input
-                    className='create-goal-container__form__input'
-                    type='datetime-local'
-                    id='goal_limit_date'
-                    name='goal_limit_date'
-                    min={currentDate}
-                />
-                <p className='input-tip'>Optional but recommended</p>
-            </label>
-        </form>
+                <label htmlFor='goal_limit_date'>
+                    <p>Limit date</p>
+                    <input
+                        className='create-goal-container__form__input'
+                        type='datetime-local'
+                        id='goal_limit_date'
+                        name='goal_limit_date'
+                        min={currentDate}
+                    />
+                    <p className='input-tip'>Optional but recommended</p>
+                </label>
+            </form>
 
-        {formMistakes.name && (
-            <FormError text='Please introduce a name for your goal' />
-        )}
+            {formMistakes.name && (
+                <FormError text='Please introduce a name for your goal' />
+            )}
 
-        {formMistakes.description && (
-            <FormError text='Descriptions can only be minimum 20 characters' />
-        )}
+            {formMistakes.description && (
+                <FormError text='Descriptions can only be minimum 20 characters' />
+            )}
 
-        <button type='submit' onClick={postGoal}>CLICK</button>
+            <button type='submit' onClick={postGoal}>CLICK</button>
         </section>
     )
 }
