@@ -3,7 +3,7 @@ import { BiSearchAlt } from 'react-icons/bi';
 import { monthNames } from '../../utils/weekDate';
 import MainGoalsList from '../../containers/MainGoalsList';
 import './index.scss';
-import ModalCreate from '../../modals/ModalCreate';
+import GenericModal from '../../modals/GenericModal';
 import CreateGoal from '../../containers/CreateGoal';
 
 const ListGoalsPage = () => {
@@ -53,9 +53,9 @@ const ListGoalsPage = () => {
         </main>
 
         {goalModal && (
-            <ModalCreate closeModal={toggleGoalModal}>
+            <GenericModal closeModal={toggleGoalModal}>
                 <CreateGoal />
-            </ModalCreate>
+            </GenericModal>
         )}
       </>
     )

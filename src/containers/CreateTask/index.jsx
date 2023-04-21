@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import FormError from '../../components/FormError';
 import './index.scss';
 
-const CreateTask = () => {
+const CreateTask = ({ goalId }) => {
     const currentDate = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
 
     const [formMistakes, setFormMistakes] = useState({ name: false, color: false });
@@ -16,12 +16,16 @@ const CreateTask = () => {
         const formData = new FormData(formRef.current);
 
         const taskPayload = {
-            goalId: 1,
+            goalId,
             name: formData.get('task_name'),
-            maximumDate: formData.get('maximum_date'),
             color: currentColor,
         };
-        // console.log("🚀 ~ file: index.jsx:23 ~ postTask ~ taskPayload:", taskPayload)
+
+        const maximumDate = formData.get('maximum_date');
+
+        if (maximumDate != '') taskPayload['maximumDate'] = maximumDate;
+
+        console.log("🚀 ~ file: index.jsx:23 ~ postTask ~ taskPayload:", taskPayload)
 
         const colorExist = taskPayload.color !== '';
         const nameExist = taskPayload.name !== '';

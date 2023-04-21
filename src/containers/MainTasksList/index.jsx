@@ -33,7 +33,7 @@ const MainTasksList = ({ goalId }) => {
 
                     <p className='main-tasks-list-container__item__status'>
                         <span
-                            style={{ backgroundColor: goal.status === 'Completed' ? 'green' : 'red'}}
+                            style={{ backgroundColor: goal.status === 'Complete' ? '#31da31' : '#ef1717'}}
                             role='status'
                         />
                         { goal.status }

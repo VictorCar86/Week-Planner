@@ -1,0 +1,40 @@
+.task-day-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &__date {
+        padding: 8px 0px;
+        text-transform: capitalize;
+    }
+
+    &__days-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &__info-day {
+            position: relative;
+            display: flex;
+            gap: 6%;
+            padding: 12px 0px;
+            padding-left: 18px;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 4px;
+                height: 100%;
+                border-radius: 9999px;
+                background-color: blueviolet;
+            }
+
+            span:first-child {
+                margin-right: 16px;
+                font-weight: 700;
+            }
+        }
+    }
+}

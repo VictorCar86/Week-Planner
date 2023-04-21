@@ -1,3 +1,18 @@
+@import '../../styles/variables';
+
+.goal-page-divisor {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 360px;
+    height: 100vh;
+    width: 100%;
+    background-color: $bg-color;
+
+    .goal-page-main {
+        width: 100%;
+    }
+}
+
 .goal-page-header {
     display: flex;
     justify-content: space-evenly;
@@ -25,13 +40,14 @@
                 width: 80%;
                 height: 18px;
                 margin-bottom: 8px;
+                border: 1px solid;
                 border-radius: 9999px;
                 background-color: #d3d3d3;
 
                 &::after {
                     position: absolute;
                     content: "";
-                    width: 60%;
+                    width: 50%;
                     height: 100%;
                     border-radius: 9999px;
                     background-color: #702a70;
@@ -45,8 +61,84 @@
     width: 80%;
     margin: 0px auto;
 
-    &__title {
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        height: 60px;
+
+        &__title {
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        &__btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px 6px 8px;
+            border-radius: 9999px;
+            border: none;
+            font-size: 1.6rem;
+            color: #ffffff;
+            background-color: #702a70;
+            transition: all 0.25s;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #5b1f5b;
+            }
+
+            &:active {
+                transform: scale(0.95);
+            }
+
+            svg {
+                width: 20px;
+                height: min-content;
+            }
+            span { margin-bottom: -1px }
+        }
+    }
+}
+
+.goal-page-schedule-container {
+    padding: 0px 26px;
+    font-size: 1.6rem;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    background-color: #f3d9d9;
+    box-sizing: content-box;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 0px;
+        font-size: 2rem;
         font-weight: 700;
-        font-size: 1.8rem;
+
+        span {
+            display: grid;
+            place-content: center;
+            padding: 8px;
+            border-radius: 6px;
+            color: #ffffff;
+            background-color: #5a1919;
+        }
+    }
+
+    &__days-list {
+        ol:first-child {
+            display: grid;
+            gap: 16px;
+        }
+    }
+}
+
+@import '../../styles/variables';
+
+@media (max-width: $middle-width) {
+    .goal-page-divisor {
+        grid-template-columns: 65% 35%;
     }
 }
