@@ -77,7 +77,7 @@ const GoalPage = () => {
 
         {taskModal && (
             <GenericModal closeModal={toggleTask}>
-                <CreateTask goalId={1}/>
+                <CreateTask goalId={1} closeModal={toggleTask}/>
             </GenericModal>
         )}
       </>

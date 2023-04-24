@@ -10,7 +10,7 @@
 
 .main-tasks-list-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 200px);
+    grid-auto-columns: 200px;
     grid-auto-flow: column;
     align-items: center;
     gap: 20px;
@@ -31,6 +31,7 @@
         font-size: 1.8rem;
 
         header {
+            position: relative;
             display: flex;
             align-items: self-start;
             justify-content: space-between;
@@ -38,38 +39,10 @@
             height: min-content;
             max-width: 160px;
 
-            span {
+            span:nth-child(1) {
                 max-width: 75%;
                 overflow-wrap: break-word;
                 @include text-style();
-            }
-
-            button {
-                display: grid;
-                place-content: center;
-                width: 24px;
-                height: min-content;
-                padding: 2px 0px;
-                color: inherit;
-                border: none;
-                border-radius: 9999px;
-                cursor: pointer;
-                background-color: #ffffff;
-                box-shadow: 0px 0px 3px black;
-                transition: all 0.15s;
-
-                &:hover {
-                    background-color: #ededed;
-                }
-
-                &:active {
-                    background-color: #bebebe;
-                }
-
-                svg {
-                    width: 20px;
-                    height: min-content;
-                }
             }
         }
 

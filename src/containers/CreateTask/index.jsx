@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
 import FormError from '../../components/FormError';
 import './index.scss';
+import { Toaster, toast } from 'sonner';
 
-const CreateTask = ({ goalId }) => {
+const CreateTask = ({ goalId, closeModal }) => {
     const currentDate = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
 
     const [formMistakes, setFormMistakes] = useState({ name: false, color: false });
@@ -12,7 +13,7 @@ const CreateTask = ({ goalId }) => {
 
     const formRef = useRef(null);
 
-    function postTask() {
+    async function postTask() {
         const formData = new FormData(formRef.current);
 
         const taskPayload = {
@@ -25,7 +26,7 @@ const CreateTask = ({ goalId }) => {
 
         if (maximumDate != '') taskPayload['maximumDate'] = maximumDate;
 
-        console.log("🚀 ~ file: index.jsx:23 ~ postTask ~ taskPayload:", taskPayload)
+        // console.log("🚀 ~ file: index.jsx:23 ~ postTask ~ taskPayload:", taskPayload);
 
         const colorExist = taskPayload.color !== '';
         const nameExist = taskPayload.name !== '';
@@ -38,17 +39,27 @@ const CreateTask = ({ goalId }) => {
 
         const fetchOptions = {
             method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
+            headers: { 'content-type': 'application/json' },
             body: JSON.stringify(taskPayload),
         };
 
-        fetch('http://localhost:8787/api/v1/tasks', fetchOptions)
-            .then(response => response.json())
-            .then(response => console.log(response))
-            .catch(err => console.error(err));
+        try {
+            const response = await fetch('http://localhost:8787/api/v1/tasks', fetchOptions);
+            const jsonResponse = await response.json();
+
+            if (jsonResponse.error) throw jsonResponse.message;
+
+            toast.success('Task have been created! 📅');
+            const timeout = setTimeout(() => {
+                closeModal();
+                clearTimeout(timeout);
+            }, 1500);
+        }
+        catch (err) {
+            toast.error('Something went wrong 😳', { description: err });
+        }
     }
+
 
     return (
         <section className='create-task-container'>
@@ -116,6 +127,8 @@ const CreateTask = ({ goalId }) => {
             {formMistakes.color && (
                 <FormError text='Please select a color for your task' />
             )}
+
+            <Toaster richColors position="bottom-center" />
 
             <button type='submit' onClick={postTask}>CLICK</button>
         </section>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RiMore2Fill } from 'react-icons/ri';
+import ButtonMoreOptions from '../../components/ButtonMoreOptions';
 import './index.scss';
 
 const MainTasksList = ({ goalId }) => {
@@ -25,10 +25,7 @@ const MainTasksList = ({ goalId }) => {
                 <li className="main-tasks-list-container__item" style={{ backgroundColor: goal.color }} key={index}>
                     <header>
                         <span>{ goal.name }</span>
-
-                        <button type='button'>
-                            <RiMore2Fill />
-                        </button>
+                        <ButtonMoreOptions />
                     </header>
 
                     <p className='main-tasks-list-container__item__status'>
