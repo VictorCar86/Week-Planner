@@ -1,26 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RiMore2Fill } from 'react-icons/ri';
 import './index.scss';
 
-const ButtonMoreOptions = () => {
+const ButtonMoreOptions = ({ options = [], taskId = -1 }) => {
     const [optModal, setOptModal] = useState(false);
 
-    function toggleOptModal() {
+    const optionsRef = useRef(false);
+
+    function toggleOptModal(callback) {
+        callback && callback(taskId);
         setOptModal(prev => !prev);
     }
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (optionsRef.current && !optionsRef.current.contains(event.target)) {
+                toggleOptModal();
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [optionsRef]);
+
     return (
         <article>
-            <button className='button-more-options-container' type='button' onClick={toggleOptModal}>
+            <button className='button-more-options-container' type='button' onClick={() => toggleOptModal()}>
                 <RiMore2Fill />
             </button>
             {optModal && (
-                <section className='button-more-options-container__modal-section'>
+                <section className='button-more-options-container__modal-section' ref={optionsRef}>
                     <ul className='button-more-options-container__modal-section__list'>
-                        {[...Array(4).keys()].map(i => (
-                            <li className='button-more-options-container__modal-section__list__item' key={i}>
-                                <button type='button' onClick={() => console.log('XD')}>
-                                    lorem ipsus lorem ipsus
+                        {options.map((option, index) => (
+                            <li className='button-more-options-container__modal-section__list__item' key={index}>
+                                <button type='button' onClick={() => toggleOptModal(option.funct)}>
+                                    { option.name }
                                 </button>
                             </li>
                         ))}

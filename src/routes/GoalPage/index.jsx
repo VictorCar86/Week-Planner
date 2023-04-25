@@ -45,7 +45,7 @@ const GoalPage = () => {
                         </button>
                     </header>
 
-                    <MainTasksList goalId={1} />
+                    <MainTasksList goalId={3} />
                 </section>
 
                 <section>
@@ -77,7 +77,7 @@ const GoalPage = () => {
 
         {taskModal && (
             <GenericModal closeModal={toggleTask}>
-                <CreateTask goalId={1} closeModal={toggleTask}/>
+                <CreateTask goalId={3} closeModal={toggleTask}/>
             </GenericModal>
         )}
       </>

@@ -33,8 +33,32 @@
         max-width: 120px;
         padding: 12px;
         border-radius: 12px;
-        background-color: #ffffff;
+        background-color: #f3f3f3;
         box-shadow: 0px 2px 4px 0px gray;
         z-index: 20;
+
+        &__list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            &__item button {
+                width: 100%;
+                padding: 6px;
+                border: none;
+                cursor: pointer;
+                font-weight: 700;
+                border-radius: 6px;
+                background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(255, 255, 255, 1) 100%);
+                box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.4), -3px -3px 8px 0px #ffffff, -3px -3px 8px 0px #ffffff, -3px -3px 8px 0px #ffffff, -3px -3px 8px 0px #ffffff;
+                transition: all 0.15s;
+
+                &:hover { transform: scale(0.95); }
+                &:active {
+                    background: #ffffff;
+                    box-shadow: inset 3px 3px 8px 0px rgba(0,0,0,0.3), inset -3px -3px 8px 0px #ffffff;
+                }
+            }
+        }
     }
 }

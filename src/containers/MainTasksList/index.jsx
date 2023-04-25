@@ -5,40 +5,57 @@ import './index.scss';
 const MainTasksList = ({ goalId }) => {
     const [tasksArray, setTaskArray] = useState([]);
 
-    useEffect(() => {
+    function getTasksById() {
         const fetchOptions = {
             method: 'GET',
-            headers: {
-                'content-type': 'application/json'
-            }
+            headers: { 'content-type': 'application/json' },
         };
 
         fetch(`http://localhost:8787/api/v1/tasks/goal/${goalId}`, fetchOptions)
             .then(response => response.json())
             .then(response => setTaskArray(response))
             .catch(err => console.error(err));
-    }, []);
+    }
+
+    useEffect(getTasksById, []);
+
+    function deleteTask(taskId) {
+        const fetchOptions = {
+            method: 'DELETE',
+            headers: { 'content-type': 'application/json' },
+        };
+
+        fetch(`http://localhost:8787/api/v1/tasks/${taskId}`, fetchOptions)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
+    }
+
+    const optionsList = [
+        { name: 'Edit', funct: () => console.log('zzz') },
+        { name: 'Delete', funct: deleteTask },
+    ];
 
     return (
         <ul className='main-tasks-list-container'>
-            {tasksArray.map((goal, index) => (
-                <li className="main-tasks-list-container__item" style={{ backgroundColor: goal.color }} key={index}>
+            {tasksArray.map((task, index) => (
+                <li className="main-tasks-list-container__item" style={{ backgroundColor: task.color }} key={index}>
                     <header>
-                        <span>{ goal.name }</span>
-                        <ButtonMoreOptions />
+                        <span>{ task.name }</span>
+                        <ButtonMoreOptions options={optionsList} taskId={task.id} />
                     </header>
 
                     <p className='main-tasks-list-container__item__status'>
                         <span
-                            style={{ backgroundColor: goal.status === 'Complete' ? '#31da31' : '#ef1717'}}
+                            style={{ backgroundColor: task.status === 'Complete' ? '#31da31' : '#ef1717'}}
                             role='status'
                         />
-                        { goal.status }
+                        { task.status }
                     </p>
 
-                    <p>{ goal.maximumDate }</p>
+                    <p>{ task.maximumDate }</p>
 
-                    <p>ID: { goal.id }</p>
+                    <p>ID: { task.id }</p>
                 </li>
             ))}
         </ul>
