@@ -5,6 +5,7 @@ import TaskDayItem from '../../components/TaskDayItem';
 import './index.scss';
 import GenericModal from '../../modals/GenericModal';
 import CreateTask from '../../containers/CreateTask';
+import { Toaster } from 'sonner';
 
 const GoalPage = () => {
     const [taskModal, setTaskModal] = useState(false);
@@ -45,7 +46,7 @@ const GoalPage = () => {
                         </button>
                     </header>
 
-                    <MainTasksList goalId={3} />
+                    <MainTasksList goalId={5} />
                 </section>
 
                 <section>
@@ -77,9 +78,11 @@ const GoalPage = () => {
 
         {taskModal && (
             <GenericModal closeModal={toggleTask}>
-                <CreateTask goalId={3} closeModal={toggleTask}/>
+                <CreateTask goalId={5} closeModal={toggleTask}/>
             </GenericModal>
         )}
+
+        <Toaster richColors position='top-center'/>
       </>
     )
 };

@@ -1,13 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './context/reduxState';
+import ListGoalsPage from './routes/ListGoalsPage';
 import HomePage from './routes/HomePage';
 import GoalPage from './routes/GoalPage';
-import ListGoalsPage from './routes/ListGoalsPage';
 import './App.scss';
 
 function App() {
-
   return (
-    <>
+    <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route index element={<HomePage/>}/>
@@ -16,7 +17,7 @@ function App() {
           <Route path='*' element={<h1>Error 404</h1>}/>
         </Routes>
       </BrowserRouter>
-    </>
+    </Provider>
   )
 }
 
