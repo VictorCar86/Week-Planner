@@ -2,37 +2,32 @@ import React, { useEffect, useState } from 'react';
 import ButtonMoreOptions from '../../components/ButtonMoreOptions';
 import './index.scss';
 import { toast } from 'sonner';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTasks, tasksState } from '../../context/sliceTasks';
 
 const MainTasksList = ({ goalId }) => {
-    const [tasksArray, setTaskArray] = useState([]);
+    const dispatcher = useDispatch();
+    const { tasks } = useSelector(tasksState);
+    console.log("🚀 ~ file: index.jsx:10 ~ MainTasksList ~ state:", tasks)
 
-    function getTasksById() {
-        const fetchOptions = {
-            method: 'GET',
-            headers: { 'content-type': 'application/json' },
-        };
-
-        fetch(`http://localhost:8787/api/v1/tasks/goal/${goalId}`, fetchOptions)
-            .then(response => response.json())
-            .then(response => setTaskArray(response))
-            .catch(err => console.error(err));
-    }
-
-    useEffect(getTasksById, []);
+    useEffect(() => {
+        fetchTasks.GET(goalId, dispatcher);
+        return () => false;
+    }, []);
 
     function deleteTask(taskId) {
-        const fetchOptions = {
-            method: 'DELETE',
-            headers: { 'content-type': 'application/json' },
+        const fetchConfig = {
+            taskId,
+            onSuccess: () => {
+                toast.success('Task deleted successfully 🔥');
+                fetchTasks.GET(goalId, dispatcher);
+            },
+            onError: (err) => {
+                toast.error('Something went wrong 😳', { description: err.message });
+            },
         };
 
-        fetch(`http://localhost:8787/api/v1/tasks/${taskId}`, fetchOptions)
-            .then(response => response.json())
-            .then(response => {
-                toast.success('Task deleted successfully 🔥');
-                getTasksById();
-            })
-            .catch(err => toast.error('Something went wrong 😳', { description: err.message }));
+        fetchTasks.DELETE(fetchConfig);
     }
 
     const optionsList = [
@@ -43,7 +38,7 @@ const MainTasksList = ({ goalId }) => {
     return (
         <>
             <ul className='main-tasks-list-container'>
-                {tasksArray.map((task, index) => (
+                {tasks.map((task, index) => (
                     <li className="main-tasks-list-container__item" style={{ backgroundColor: task.color }} key={index}>
                         <header>
                             <span>{ task.name }</span>

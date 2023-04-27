@@ -1,15 +1,17 @@
 import React, { useRef, useState } from 'react';
+import { fetchTasks } from '../../context/sliceTasks';
+import { useDispatch } from 'react-redux';
+import { toast } from 'sonner';
 import FormError from '../../components/FormError';
 import './index.scss';
-import { toast } from 'sonner';
-import { fetchTasks } from '../../context/sliceTasks';
 
 const CreateTask = ({ goalId, closeModal }) => {
     const currentDate = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
+    const dispatcher = useDispatch();
 
     const [formMistakes, setFormMistakes] = useState({ name: false, color: false });
-
     const [currentColor, setCurrentColor] = useState('');
+
     const radioColors = ['red', 'green', 'blue', 'pink', 'yellow', 'orange', 'violet'];
 
     const formRef = useRef(null);
@@ -44,6 +46,7 @@ const CreateTask = ({ goalId, closeModal }) => {
                 toast.success('Task have been created! 📅');
                 const timeout = setTimeout(() => {
                     closeModal();
+                    fetchTasks.GET(goalId, dispatcher);
                     clearTimeout(timeout);
                 }, 1500);
             },

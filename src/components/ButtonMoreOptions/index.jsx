@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { RiMore2Fill } from 'react-icons/ri';
 import './index.scss';
 
-const ButtonMoreOptions = ({ options = [], taskId = -1 }) => {
+const ButtonMoreOptions = ({ options = [], belongingId = -1 }) => {
     const [optModal, setOptModal] = useState(false);
 
     const optionsRef = useRef(false);
 
     function toggleOptModal(callback) {
-        callback && callback(taskId);
+        callback && callback(belongingId);
         setOptModal(prev => !prev);
     }
 

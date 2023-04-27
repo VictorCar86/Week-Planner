@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RiAddFill, RiCalendarTodoFill } from 'react-icons/ri';
 import MainTasksList from '../../containers/MainTasksList';
 import TaskDayItem from '../../components/TaskDayItem';
@@ -6,8 +6,20 @@ import './index.scss';
 import GenericModal from '../../modals/GenericModal';
 import CreateTask from '../../containers/CreateTask';
 import { Toaster } from 'sonner';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const GoalPage = () => {
+    const navigator = useNavigate();
+    const { goalId } = useParams();
+    console.log("🚀 ~ file: index.jsx:11 ~ GoalPage ~ params:", goalId);
+
+    useEffect(() => {
+        if (!Number(goalId)){
+            navigator('/goals');
+        }
+    }, []);
+
+
     const [taskModal, setTaskModal] = useState(false);
 
     function toggleTask() {
@@ -46,7 +58,9 @@ const GoalPage = () => {
                         </button>
                     </header>
 
-                    <MainTasksList goalId={5} />
+                    {Number(goalId) && (
+                        <MainTasksList goalId={goalId} />
+                    )}
                 </section>
 
                 <section>
@@ -78,7 +92,7 @@ const GoalPage = () => {
 
         {taskModal && (
             <GenericModal closeModal={toggleTask}>
-                <CreateTask goalId={5} closeModal={toggleTask}/>
+                <CreateTask goalId={goalId} closeModal={() => setTaskModal(false)}/>
             </GenericModal>
         )}
 

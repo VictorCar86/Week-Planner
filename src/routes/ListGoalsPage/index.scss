@@ -6,67 +6,73 @@
     &:active { filter: invert(1) }
 }
 
-.goals-section {
-    display: table-cell;
-    width: 100vw;
-    height: 100%;
+.goals-page {
+    width: 100%;
+    height: 100vh;
     background-color: #f5f5dc;
 }
 
-.goals-section__header {
-    display: flex;
-    justify-content: center;
-    gap: 10%;
-    margin: 30px 0px;
+.goals-page__goals-section {
+    display: table-cell;
+    width: 100vw;
+    height: 100%;
 
-    h1 {
-        font-size: 2.4rem;
-        text-align: center;
-    }
-
-    p {
-        margin-top: 8px;
-        color: #43314c;
-        font-weight: 700;
-        font-size: 1.8rem;
-        text-transform: capitalize;
-    }
-
-    span:last-child {
+    &__header {
         display: flex;
-        align-items: center;
-        gap: 16px;
+        justify-content: center;
+        gap: 10%;
+        margin: 30px 0px;
 
-        button:first-child {
-            color: #ffffff;
-            background-color: #43314c;
-            @include generic-button();
+        h1 {
+            font-size: 2.4rem;
+            text-align: center;
         }
 
-        button:last-child {
-            display: grid;
-            place-content: center;
-            color: #000000;
-            background-color: #d4d4d4;
-            @include generic-button();
+        p {
+            margin-top: 8px;
+            color: #43314c;
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-transform: capitalize;
+        }
 
-            svg {
-                width: 20px;
-                height: max-content;
+        span:last-child {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            button:first-child {
+                color: #ffffff;
+                background-color: #43314c;
+                @include generic-button();
+            }
+
+            button:last-child {
+                display: grid;
+                place-content: center;
+                color: #000000;
+                background-color: #d4d4d4;
+                @include generic-button();
+
+                svg {
+                    width: 20px;
+                    height: max-content;
+                }
             }
         }
-    }
 
-    .goals-section__header__button {
-        height: 100%;
-        padding: 0px 12px;
-        border-radius: 6px;
-        border: 1px solid gray;
-        cursor: pointer;
+        &__button {
+            height: 100%;
+            padding: 0px 12px;
+            border-radius: 6px;
+            border: 1px solid gray;
+            cursor: pointer;
+        }
     }
 }
 
-.goals-section__not-found-container {
+
+.goals-page__goals-section__not-found-container {
     display: grid;
     place-items: center;
     font-size: 1.8rem;

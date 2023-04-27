@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 
 export const sliceTasks = createSlice({
     name: 'tasks',
@@ -33,25 +32,24 @@ export default sliceTasks.reducer;
 
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-const dispatcher = useDispatch();
 
-async function GET(goalId) {
+async function GET(goalId, dispatch) {
     const options = {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
     };
 
     try {
-        dispatcher(requestTasks());
+        dispatch(requestTasks());
 
         const response = await fetch(`${BACKEND_URL}/api/v1/tasks/goal/${goalId}`, options)
         const jsonResponse = await response.json();
 
-        dispatcher(resultTasks(jsonResponse));
+        dispatch(resultTasks(jsonResponse));
     }
     catch (err) {
         console.error(err);
-        dispatcher(errorTasks());
+        dispatch(errorTasks());
     }
 }
 
@@ -68,15 +66,36 @@ async function POST(config) {
 
         if (jsonResponse.error) throw jsonResponse.message;
 
-        if (config.onSuccess){
-            config.onSuccess();
-        }
+        if (config.onSuccess) config.onSuccess();
     }
     catch (err) {
-        if (config.onError){
-            config.onError(err);
-        }
+        if (config.onError) config.onError(err);
+    }
+    finally {
+        if (config.finally) config.finally();
     }
 }
 
-export const fetchTasks = { POST };
+async function DELETE(config) {
+    const options = {
+        method: 'DELETE',
+        headers: { 'content-type': 'application/json' },
+    };
+
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/v1/tasks/${config.taskId}`, options);
+        const jsonResponse = await response.json();
+
+        if (jsonResponse.error) throw jsonResponse.message;
+
+        if (config.onSuccess) config.onSuccess();
+    }
+    catch (err) {
+        if (config.onError) config.onError(err);
+    }
+    finally {
+        if (config.finally) config.finally();
+    }
+}
+
+export const fetchTasks = { GET, POST, DELETE };

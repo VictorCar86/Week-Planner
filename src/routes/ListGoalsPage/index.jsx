@@ -19,27 +19,27 @@ const ListGoalsPage = () => {
 
     return (
       <>
-        <main>
-            <section className='goals-section'>
-                <header className='goals-section__header'>
+        <main className='goals-page'>
+            <section className='goals-page__goals-section'>
+                <header className='goals-page__goals-section__header'>
                     <span>
                         <h1>Your Goals 🎯</h1>
                         <p>{stringDate}</p>
                     </span>
 
                     <span>
-                        <button className='goals-section__header__button' type='button' onClick={toggleGoalModal}>
+                        <button className='goals-page__goals-section__header__button' type='button' onClick={toggleGoalModal}>
                             Add New Goal
                         </button>
 
-                        <button className='goals-section__header__button' type='button'>
+                        <button className='goals-page__goals-section__header__button' type='button'>
                             <BiSearchAlt />
                         </button>
                     </span>
                 </header>
 
                 <section>
-                    {/* <div className='goals-section__not-found-container'>
+                    {/* <div className='goals-page__goals-section__not-found-container'>
                         <img
                             src="https://images.unsplash.com/photo-1471970394675-613138e45da3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
                             alt="Notes"

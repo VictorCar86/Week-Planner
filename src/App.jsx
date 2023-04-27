@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route index element={<HomePage/>}/>
           <Route path='/goals' element={<ListGoalsPage/>}/>
-            <Route path='/goal' element={<GoalPage />}/>
+            <Route path='/goals/:goalId' element={<GoalPage />}/>
           <Route path='*' element={<h1>Error 404</h1>}/>
         </Routes>
       </BrowserRouter>
