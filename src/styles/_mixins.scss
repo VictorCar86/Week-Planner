@@ -16,10 +16,32 @@
     color: gray;
 }
 
-// @mixin generic-modal(){
+@mixin animation-generic-modal($close){
+    @if $close == true {
+        animation-name: close-generic-modal;
+        @keyframes close-generic-modal {
+            from {
+                opacity: 1;
+            } to {
+                opacity: 0;
+            }
+        }
+    }
+    @else {
+        animation-name: open-generic-modal;
+        @keyframes open-generic-modal {
+            from {
+                opacity: 0;
+            } to {
+                opacity: 1;
+            }
+        }
+    }
 
-// }
-
-// .close-modal {
-
-// }
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-delay: 0s;
+    animation-iteration-count: unset;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+}

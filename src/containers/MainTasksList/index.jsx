@@ -8,7 +8,6 @@ import { fetchTasks, tasksState } from '../../context/sliceTasks';
 const MainTasksList = ({ goalId }) => {
     const dispatcher = useDispatch();
     const { tasks } = useSelector(tasksState);
-    console.log("🚀 ~ file: index.jsx:10 ~ MainTasksList ~ state:", tasks)
 
     useEffect(() => {
         fetchTasks.GET(goalId, dispatcher);

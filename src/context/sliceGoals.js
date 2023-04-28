@@ -53,49 +53,49 @@ async function GET(/*goalId,*/ dispatch) {
     }
 }
 
-// async function POST(config) {
-//     const options = {
-//         method: 'POST',
-//         headers: { 'content-type': 'application/json' },
-//         body: JSON.stringify(config.body),
-//     };
+async function POST(config) {
+    const options = {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(config.body),
+    };
 
-//     try {
-//         const response = await fetch(`${BACKEND_URL}/api/v1/goals`, options);
-//         const jsonResponse = await response.json();
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/v1/goals`, options);
+        const jsonResponse = await response.json();
 
-//         if (jsonResponse.error) throw jsonResponse.message;
+        if (jsonResponse.error) throw jsonResponse.message;
 
-//         if (config.onSuccess) config.onSuccess();
-//     }
-//     catch (err) {
-//         if (config.onError) config.onError(err);
-//     }
-//     finally {
-//         if (config.finally) config.finally();
-//     }
-// }
+        if (config.onSuccess) config.onSuccess();
+    }
+    catch (err) {
+        if (config.onError) config.onError(err);
+    }
+    finally {
+        if (config.finally) config.finally();
+    }
+}
 
-// async function DELETE(config) {
-//     const options = {
-//         method: 'DELETE',
-//         headers: { 'content-type': 'application/json' },
-//     };
+async function DELETE(config) {
+    const options = {
+        method: 'DELETE',
+        headers: { 'content-type': 'application/json' },
+    };
 
-//     try {
-//         const response = await fetch(`${BACKEND_URL}/api/v1/goals/${config.taskId}`, options);
-//         const jsonResponse = await response.json();
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/v1/goals/${config.goalId}`, options);
+        const jsonResponse = await response.json();
 
-//         if (jsonResponse.error) throw jsonResponse.message;
+        if (jsonResponse.error) throw jsonResponse.message;
 
-//         if (config.onSuccess) config.onSuccess();
-//     }
-//     catch (err) {
-//         if (config.onError) config.onError(err);
-//     }
-//     finally {
-//         if (config.finally) config.finally();
-//     }
-// }
+        if (config.onSuccess) config.onSuccess();
+    }
+    catch (err) {
+        if (config.onError) config.onError(err);
+    }
+    finally {
+        if (config.finally) config.finally();
+    }
+}
 
-export const fetchGoals = { GET, /*POST, DELETE*/ };
+export const fetchGoals = { GET, POST, DELETE };

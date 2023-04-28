@@ -19,6 +19,7 @@
         border-radius: 12px;
         color: #ffffff;
         font-size: 1.8rem;
+        font-weight: bold;
         background-color: #43314c;
 
         header {
@@ -27,34 +28,6 @@
             align-items: center;
             height: min-content;
             width: 100%;
-
-            button {
-                display: grid;
-                place-content: center;
-                width: 24px;
-                height: min-content;
-                padding: 2px 0px;
-                color: inherit;
-                border: none;
-                border-radius: 9999px;
-                cursor: pointer;
-                background-color: transparent;
-
-                &:hover {
-                    color: #000000;
-                    background-color: #d4d4d4;
-                }
-
-                &:active {
-                    color: #000000;
-                    background-color: #ffffff;
-                }
-
-                svg {
-                    width: 20px;
-                    height: min-content;
-                }
-            }
         }
 
         &__description {
@@ -64,6 +37,16 @@
             height: 80%;
             max-width: 200px;
             overflow: hidden;
+        }
+
+        &__link {
+            width: max-content;
+            height: max-content;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            color: #000000;
+            text-decoration: none;
+            background-color: #ffffff;
         }
     }
 }

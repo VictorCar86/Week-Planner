@@ -11,7 +11,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 const GoalPage = () => {
     const navigator = useNavigate();
     const { goalId } = useParams();
-    console.log("🚀 ~ file: index.jsx:11 ~ GoalPage ~ params:", goalId);
 
     useEffect(() => {
         if (!Number(goalId)){
@@ -19,12 +18,8 @@ const GoalPage = () => {
         }
     }, []);
 
-
-    const [taskModal, setTaskModal] = useState(false);
-
-    function toggleTask() {
-        setTaskModal(prev => !prev);
-    }
+    const [modalState, setModalState] = useState(false);
+    const [toggleModal, setToggleModal] = useState(() => false);
 
     return (
       <>
@@ -51,7 +46,7 @@ const GoalPage = () => {
                         <button
                             className='goal-page-tasks-section__header__btn'
                             type='button'
-                            onClick={toggleTask}
+                            onClick={() => setModalState(true)}
                         >
                             <RiAddFill />
                             <span>Add New Task</span>
@@ -90,9 +85,9 @@ const GoalPage = () => {
             </aside>
         </div>
 
-        {taskModal && (
-            <GenericModal closeModal={toggleTask}>
-                <CreateTask goalId={goalId} closeModal={() => setTaskModal(false)}/>
+        {modalState && (
+            <GenericModal closeModal={() => setModalState(false)} setToggleModal={setToggleModal}>
+                <CreateTask goalId={goalId} closeModal={toggleModal}/>
             </GenericModal>
         )}
 

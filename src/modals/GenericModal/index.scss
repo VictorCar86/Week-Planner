@@ -1,9 +1,18 @@
+@import '../../styles/mixins';
+
 .generic-modal-container {
     position: fixed;
     top: 0px;
     width: 100vw;
     height: 100vh;
     background-color: #80808070;
+
+    &--open-modal {
+        @include animation-generic-modal(false);
+    }
+    &--close-modal {
+        @include animation-generic-modal(true);
+    }
 
     &__content {
         transform: translate(-50%, -50%);

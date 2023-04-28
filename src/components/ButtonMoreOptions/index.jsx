@@ -27,8 +27,8 @@ const ButtonMoreOptions = ({ options = [], belongingId = -1 }) => {
     }, [optionsRef]);
 
     return (
-        <article>
-            <button className='button-more-options-container' type='button' onClick={() => toggleOptModal()}>
+        <article className='button-more-options-container'>
+            <button className='button-more-options-container__button' type='button' onClick={() => toggleOptModal()}>
                 <RiMore2Fill />
             </button>
             {optModal && (

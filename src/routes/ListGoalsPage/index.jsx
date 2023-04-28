@@ -5,6 +5,7 @@ import MainGoalsList from '../../containers/MainGoalsList';
 import './index.scss';
 import GenericModal from '../../modals/GenericModal';
 import CreateGoal from '../../containers/CreateGoal';
+import { Toaster } from 'sonner';
 
 const ListGoalsPage = () => {
     const currentDate = new Date();
@@ -57,6 +58,8 @@ const ListGoalsPage = () => {
                 <CreateGoal />
             </GenericModal>
         )}
+
+        <Toaster richColors position='top-center'/>
       </>
     )
 }

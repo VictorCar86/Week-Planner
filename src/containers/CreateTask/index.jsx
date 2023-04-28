@@ -27,7 +27,7 @@ const CreateTask = ({ goalId, closeModal }) => {
 
         const maximumDate = formData.get('maximum_date');
 
-        if (maximumDate != '') taskPayload['maximumDate'] = maximumDate;
+        if (maximumDate !== '') taskPayload['maximumDate'] = maximumDate;
 
         // console.log("🚀 ~ file: index.jsx:23 ~ postTask ~ taskPayload:", taskPayload);
 
