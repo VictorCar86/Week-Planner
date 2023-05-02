@@ -41,7 +41,7 @@ const MainTasksList = ({ goalId }) => {
                     <li className="main-tasks-list-container__item" style={{ backgroundColor: task.color }} key={index}>
                         <header>
                             <span>{ task.name }</span>
-                            <ButtonMoreOptions options={optionsList} taskId={task.id} />
+                            <ButtonMoreOptions options={optionsList} belongingId={task.id} />
                         </header>
 
                         <p className='main-tasks-list-container__item__status'>

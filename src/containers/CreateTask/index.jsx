@@ -6,6 +6,7 @@ import FormError from '../../components/FormError';
 import './index.scss';
 
 const CreateTask = ({ goalId, closeModal }) => {
+    console.log("🚀 ~ file: index.jsx:9 ~ CreateTask ~ closeModal:", closeModal)
     const currentDate = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
     const dispatcher = useDispatch();
 

@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BiXCircle } from 'react-icons/bi';
 import './index.scss';
 
-const GenericModal = ({ children, closeModal, setToggleModal }) => {
-    const [closeAnimation, setCloseAnimation] = useState(false);
-
+const GenericModal = ({ children, modalState, setModalState }) => {
     function beforeCloseModal(){
-        setCloseAnimation(true);
         const timeout = setTimeout(() => {
-            closeModal();
+            setModalState(prev => ({...prev, open: false}));
             clearTimeout(timeout);
         }, 350);
     }
 
     useEffect(() => {
-        setToggleModal(beforeCloseModal);
-    }, []);
+        if (!modalState.animation && modalState.open){
+            beforeCloseModal();
+        }
+    }, [modalState.animation]);
 
     return (
-        <article className={`generic-modal-container ${closeAnimation ? "generic-modal-container--close-modal" : "generic-modal-container--open-modal"}`}>
+        <article className={`generic-modal-container ${modalState.animation ? "generic-modal-container--open-modal" : "generic-modal-container--close-modal"}`}>
             <div className='generic-modal-container__content'>
-                <button className='generic-modal-container__content__close-btn' onClick={beforeCloseModal}>
+                <button className='generic-modal-container__content__close-btn' onClick={() => setModalState(prev => ({...prev, animation: false}))}>
                     <BiXCircle/>
                 </button>
 

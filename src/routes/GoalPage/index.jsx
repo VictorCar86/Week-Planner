@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RiAddFill, RiCalendarTodoFill } from 'react-icons/ri';
 import MainTasksList from '../../containers/MainTasksList';
 import TaskDayItem from '../../components/TaskDayItem';
@@ -18,8 +18,7 @@ const GoalPage = () => {
         }
     }, []);
 
-    const [modalState, setModalState] = useState(false);
-    const [toggleModal, setToggleModal] = useState(() => false);
+    const [modalState, setModalState] = useState({ open: false, animation: false });
 
     return (
       <>
@@ -46,7 +45,7 @@ const GoalPage = () => {
                         <button
                             className='goal-page-tasks-section__header__btn'
                             type='button'
-                            onClick={() => setModalState(true)}
+                            onClick={() => setModalState({ open: true, animation: true })}
                         >
                             <RiAddFill />
                             <span>Add New Task</span>
@@ -85,9 +84,9 @@ const GoalPage = () => {
             </aside>
         </div>
 
-        {modalState && (
-            <GenericModal closeModal={() => setModalState(false)} setToggleModal={setToggleModal}>
-                <CreateTask goalId={goalId} closeModal={toggleModal}/>
+        {modalState.open && (
+            <GenericModal modalState={modalState} setModalState={setModalState}>
+                <CreateTask goalId={goalId} closeModal={() => setModalState(prev => ( {...prev, animation: false} ))}/>
             </GenericModal>
         )}
 

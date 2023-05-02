@@ -47,7 +47,7 @@ const MainGoalsList = () => {
 
                     <p>ID: { goal.id }</p>
 
-                    <p>30 Tasks</p>
+                    <p>{ goal.tasks.length } Tasks</p>
 
                     <Link className='main-goals-list-container__item__link' to={`/goals/${goal.id}`}>
                         Watch tasks 📚
