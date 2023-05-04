@@ -1,0 +1,29 @@
+.generic-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: max-content;
+    width: max-content;
+    padding: 8px 14px 8px 10px;
+    border-radius: 9999px;
+    border: none;
+    font-size: 1.6rem;
+    color: #ffffff;
+    background-color: #702a70;
+    transition: all 0.25s;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #5b1f5b;
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    svg {
+        width: 20px;
+        height: min-content;
+    }
+    span { margin-top: 2px }
+}

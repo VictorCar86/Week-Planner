@@ -12,11 +12,7 @@ const ListGoalsPage = () => {
     const monthName = Object.keys(monthNames)[currentDate.getMonth()];
     const stringDate = `${currentDate.getDate()} ${monthName} ${currentDate.getFullYear()}`;
 
-    const [goalModal, setGoalModal] = useState(false);
-
-    function toggleGoalModal(){
-        setGoalModal(prev => !prev);
-    }
+    const [modalState, setModalState] = useState({ open: false, animation: false });
 
     return (
       <>
@@ -29,11 +25,18 @@ const ListGoalsPage = () => {
                     </span>
 
                     <span>
-                        <button className='goals-page__goals-section__header__button' type='button' onClick={toggleGoalModal}>
+                        <button
+                            className='goals-page__goals-section__header__button'
+                            onClick={() => setModalState({ open: true, animation: true })}
+                            type='button'
+                        >
                             Add New Goal
                         </button>
 
-                        <button className='goals-page__goals-section__header__button' type='button'>
+                        <button
+                            className='goals-page__goals-section__header__button'
+                            type='button'
+                        >
                             <BiSearchAlt />
                         </button>
                     </span>
@@ -53,9 +56,9 @@ const ListGoalsPage = () => {
             </section>
         </main>
 
-        {goalModal && (
-            <GenericModal closeModal={toggleGoalModal}>
-                <CreateGoal />
+        {modalState.open && (
+            <GenericModal modalState={modalState} setModalState={setModalState}>
+                <CreateGoal closeModal={() => setModalState(prev => ({ ...prev, animation: false }))} />
             </GenericModal>
         )}
 

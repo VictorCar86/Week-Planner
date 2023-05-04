@@ -1,8 +1,14 @@
 import React, { useRef, useState } from 'react';
+import { toast } from 'sonner';
+import { useDispatch } from 'react-redux';
+import { fetchGoals } from '../../context/sliceGoals';
+import { RiAddFill } from 'react-icons/ri';
 import FormError from '../../components/FormError';
+import GenericButton from '../../components/GenericButton';
 import './index.scss';
 
-const CreateGoal = () => {
+const CreateGoal = ({ closeModal }) => {
+    const dispatcher = useDispatch();
     const currentDate = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
 
     const [formMistakes, setFormMistakes] = useState({ name: false, description: false });
@@ -15,8 +21,10 @@ const CreateGoal = () => {
         const goalPayload = {
             name: formData.get('goal_name'),
             description: formData.get('goal_description'),
-            limitDate: formData.get('goal_limit_date'),
         };
+
+        const limitDate = formData.get('goal_limit_date');
+        if (limitDate !== '') goalPayload['limitDate'] = limitDate;
 
         const nameExist = goalPayload.name === '';
         const descBiggerThan1 = goalPayload.description.length >= 1;
@@ -28,18 +36,22 @@ const CreateGoal = () => {
             return;
         }
 
-        const fetchOptions = {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
+        const fetchConfig = {
+            body: goalPayload,
+            onSuccess: () => {
+                toast.success('Task have been created! 📅');
+                const timeout = setTimeout(() => {
+                    closeModal();
+                    fetchGoals.GET(dispatcher);
+                    clearTimeout(timeout);
+                }, 1500);
             },
-            body: JSON.stringify(goalPayload),
+            onError: (err) => {
+                toast.error('Something went wrong 😳', { description: err });
+            }
         };
 
-        fetch('http://localhost:8787/api/v1/goals', fetchOptions)
-            .then(response => response.json())
-            .then(response => console.log(response))
-            .catch(err => console.error(err));
+        fetchGoals.POST(fetchConfig);
     }
 
     return (
@@ -95,7 +107,12 @@ const CreateGoal = () => {
                 <FormError text='Descriptions can only be minimum 20 characters' />
             )}
 
-            <button type='submit' onClick={postGoal}>CLICK</button>
+            <GenericButton
+                onClick={postGoal}
+                IconSvg={<RiAddFill/>}
+                type='submit'
+                text='Create Goal'
+            />
         </section>
     )
 }

@@ -2,11 +2,12 @@ import React, { useRef, useState } from 'react';
 import { fetchTasks } from '../../context/sliceTasks';
 import { useDispatch } from 'react-redux';
 import { toast } from 'sonner';
+import { RiAddFill } from 'react-icons/ri';
 import FormError from '../../components/FormError';
+import GenericButton from '../../components/GenericButton';
 import './index.scss';
 
 const CreateTask = ({ goalId, closeModal }) => {
-    console.log("🚀 ~ file: index.jsx:9 ~ CreateTask ~ closeModal:", closeModal)
     const currentDate = new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
     const dispatcher = useDispatch();
 
@@ -126,7 +127,12 @@ const CreateTask = ({ goalId, closeModal }) => {
                 <FormError text='Please select a color for your task' />
             )}
 
-            <button type='submit' onClick={postTask}>CLICK</button>
+            <GenericButton
+                onClick={postTask}
+                IconSvg={<RiAddFill/>}
+                type='submit'
+                text='Create Task'
+            />
         </section>
     )
 }

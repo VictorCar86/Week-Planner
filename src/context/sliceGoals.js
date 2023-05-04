@@ -66,7 +66,7 @@ async function POST(config) {
 
         if (jsonResponse.error) throw jsonResponse.message;
 
-        if (config.onSuccess) config.onSuccess();
+        if (config.onSuccess) config.onSuccess(jsonResponse);
     }
     catch (err) {
         if (config.onError) config.onError(err);
@@ -88,7 +88,7 @@ async function DELETE(config) {
 
         if (jsonResponse.error) throw jsonResponse.message;
 
-        if (config.onSuccess) config.onSuccess();
+        if (config.onSuccess) config.onSuccess(jsonResponse);
     }
     catch (err) {
         if (config.onError) config.onError(err);
